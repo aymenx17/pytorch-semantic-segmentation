@@ -1,2 +1,2 @@
-import cityscapes
-import voc
+#import cityscapes
+#import voc

@@ -8,7 +8,7 @@ from torch.utils import data
 
 num_classes = 21
 ignore_label = 255
-root = '/media/library/Packages/Datasets/VOC'
+root = '/home/cf/data/'
 
 '''
 color map
@@ -52,9 +52,9 @@ def make_dataset(mode):
             item = (os.path.join(img_path, it + '.jpg'), os.path.join(mask_path, it + '.png'))
             items.append(item)
     else:
-        img_path = os.path.join(root, 'VOCdevkit (test)', 'VOC2012', 'JPEGImages')
+        img_path = os.path.join(root, 'VOCdevkit', 'VOC2012', 'JPEGImages')
         data_list = [l.strip('\n') for l in open(os.path.join(
-            root, 'VOCdevkit (test)', 'VOC2012', 'ImageSets', 'Segmentation', 'test.txt')).readlines()]
+            root, 'VOCdevkit', 'VOC2012', 'ImageSets', 'Segmentation', 'test.txt')).readlines()]
         for it in data_list:
             items.append((img_path, it))
     return items
@@ -80,6 +80,7 @@ class VOC(data.Dataset):
 
         img_path, mask_path = self.imgs[index]
         img = Image.open(img_path).convert('RGB')
+
         if self.mode == 'train':
             mask = sio.loadmat(mask_path)['GTcls']['Segmentation'][0][0]
             mask = Image.fromarray(mask.astype(np.uint8))

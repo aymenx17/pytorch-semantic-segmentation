@@ -170,7 +170,7 @@ def sliced_forward(single_forward):
                 scaled_x = Variable(scaled_x).cuda()
                 scaled_h, scaled_w = scaled_x.size()[2:]
                 long_size = max(scaled_h, scaled_w)
-                print scaled_x.size()
+                print (scaled_x.size())
 
                 if long_size > self.crop_size:
                     count = torch.zeros((scaled_h, scaled_w))
@@ -185,7 +185,7 @@ def sliced_forward(single_forward):
                             ey, ex = sy + self.crop_size, sx + self.crop_size
                             x_sub = scaled_x[:, :, sy: ey, sx: ex]
                             x_sub, pad_h, pad_w = _pad(x_sub, self.crop_size)
-                            print x_sub.size()
+                            print (x_sub.size())
                             outputs_sub, aux_sub = single_forward(self, x_sub)
 
                             if sy + self.crop_size > scaled_h:
